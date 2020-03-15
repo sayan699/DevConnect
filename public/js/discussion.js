@@ -1,26 +1,31 @@
-//POST.ejs
+// app.get('/discussion/:id', async (req, res) => {
+//     const post = await Post.findById(req.params.id);
+//     res.json(post)
+//   })
+
+
 window.onload = function exampleFunction() {
-    fetch('/display').then((response) => {
+    fetch('discussion/5e6bc98fae92033dff575860').then((response) => {
         response.json().then((data) => {
             if (data.error) {
                 console.log(data.error)
             } else {
                 output = ''
-                for (var i = data.length-1; i >=0; i--) {
-                    output += `<div class="post bg-white p-1 my-1">
+                
+                    output = `<div class="post bg-white p-1 my-1">
                     <div>
                       <a href="profile.html">
                         <img
                           class="round-img"
-                          src="${data[i].avatar}"
+                          src="${data.avatar}"
                           alt=""
                         />
-                        <h4>${data[i].name}</h4>
+                        <h4>${data.name}</h4>
                       </a>
                     </div>
                     <div>
                       <p class="my-1">
-                        ${data[i].text}
+                        ${data.text}
                       </p>
                     </div>
                   </div>
@@ -29,7 +34,7 @@ window.onload = function exampleFunction() {
                     <div class="bg-primary p">
                       <h3>Leave A Comment</h3>
                     </div>
-                    <form class="form my-1" method="POST" action="/post/${data[i]._id}">
+                    <form class="form my-1">
                       <textarea
                         name="text"
                         cols="30"
@@ -40,8 +45,8 @@ window.onload = function exampleFunction() {
                       <input type="submit" class="btn btn-dark my-1" value="Submit" />
                     </form>
                   </div>`
-                }
-            }document.getElementById('posts').innerHTML = output
+                
+            }document.getElementById('discussion').innerHTML = output
         })
     })
 

@@ -174,10 +174,10 @@ app.get('/logout', (req, res) => {
 });
 
 
-//Help route
-// app.get('/help', (req, res) => {
-//   res.render('help')
-// })
+
+
+
+
 app.get('/help', ensureAuthenticated, (req, res) =>
   res.render('help', {
     user: req.user
@@ -220,7 +220,7 @@ app.post('/posts', (req, res) => {
   
 })
 app.get('/', (req, res) => {
-  res.render('welcome')
+  res.render('index')
 })
 
 
@@ -322,6 +322,83 @@ app.get('/gitfind',ensureAuthenticated, async (req, res) => {
 app.get('/git', (req, res) => {
   res.render('git')
 })
+
+
+
+
+//Discussions and issues sections
+
+// app.get('/discussion',(req, res) => {
+//   res.render('discussion')
+// })
+
+
+app.get('/discussion/:id', async (req, res) => {
+  const post = await Post.findById(req.params.id);
+  // res.json(post)
+  res.render('discuss', {
+    name: post.name,
+    text: post.text,
+    avatar: post.avatar,
+    time: post.date,
+    comments:post.comments
+
+  })
+})
+
+//Posting Comments --------------------
+app.post('/post/:id',ensureAuthenticated,async (req, res) => {
+    try {
+      const user = await User.findById(req.user.id).select('-password');
+      const post = await Post.findById(req.params.id);
+
+      const newComment = {
+        text: req.body.text,
+        name: user.name,
+        avatar: user.avatar,
+        user: req.user.id
+      };
+
+      post.comments.unshift(newComment);
+
+      await post.save();
+
+      res.json(post);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+  }
+);
+
+
+
+
+
+
+
+//Add like to posts
+app.put('/like/:id', ensureAuthenticated, async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+
+    // Check if the post has already been liked
+    if (
+      post.likes.filter(like => like.user.toString() === req.user.id).length > 0
+    ) {
+      return res.status(400).json({ msg: 'Post already liked' });
+    }
+
+    post.likes.unshift({ user: req.user.id });
+
+    await post.save();
+
+    res.json(post);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
 
 
 const PORT = process.env.PORT || 3000;

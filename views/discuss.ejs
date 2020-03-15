@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+    
+  </head>
+  <body>
+    <section class="container">
+      
+      <div class="post bg-white p-1 my-1">
+        <div>
+          <a href="profile.html">
+            <img
+              class="round-img"
+              src="<%=avatar%>"
+              alt=""
+            />
+            <h4 class="bg-info text-dark"><%=name%></h4>
+          </a>
+        </div>
+        
+      </div>
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">Issue</h5>
+          <p class="card-text"><%=text%></p>
+          <p class="card-text"><small class="text-muted">Updated on &nbsp<%=time%></small></p>
+        </div>
+      </div>
+      <div class="post-form">
+        <div class="bg-info p">
+          <h3>comments</h3>
+        </div>
+        <% comments.forEach(function(comment){ %>
+          <hr>
+            <img class="mr-3" src="" >
+            <div class="media-body">
+              <h4 class="mt-0 mb-1"><%=comment.name%></h4>
+              <p class="text-secondary">Commented on <%=comment.date%></p>
+                <div class="bg-light">
+              <h5 class="text-secondary"><%= comment.text %></h5>
+            </div>
+            </div>
+          <hr>
+          <%  }); %>
+
+          
+        
+      </div>
+    </section>
+
+
+
+
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>
+    
